@@ -17,6 +17,7 @@
     "concurrently": "^10.0.5"
   },
   "dependencies": {
+    "crypto": "^1.0.1",
     "lucide-react": "^1.47.0"
   }
 }

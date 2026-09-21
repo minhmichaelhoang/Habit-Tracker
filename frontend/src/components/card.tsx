@@ -13,7 +13,7 @@ interface CardProps {
 
     export function Card({ title, description, color = 'var(--color-primary)', repeat = 1 }: CardProps) {
         return (
-        <div className={`border-3 rounded-lg p-4 `} style={{ color: "var(--color-primary)" }}>
+        <div className="border-3 rounded-lg p-4 text-primary">
             <div className="flex items-center justify-between">
                 <CardTitle title={title} color={color} />
                 <div className="flex gap-2">
