@@ -1,6 +1,7 @@
+import type { Habit } from "./domain/Habit"
 export const BASE_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
-export async function createHabit(data: Habit): Promise<> {
+export async function createHabit(data: Habit): Promise<void> {
     const response = await fetch(BASE_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
