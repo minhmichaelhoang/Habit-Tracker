@@ -2,7 +2,7 @@ import express from 'express'
 
 type Habit = {
   id: number
-  name: string
+  title: string
   createdAt: string
 }
 
@@ -24,13 +24,13 @@ app.get('/api/habits', (_req, res) => {
 })
 
 app.post('/api/habits', (req, res) => {
-  const name = typeof req.body?.name === 'string' ? req.body.name.trim() : ''
-  if (!name) {
-    res.status(400).json({ error: 'name is required' })
+  const title = typeof req.body?.name === 'string' ? req.body.title.trim() : ''
+  if (!title) {
+    res.status(400).json({ error: 'title is required' })
     return
   }
 
-  const habit: Habit = { id: nextId++, name, createdAt: new Date().toISOString() }
+  const habit: Habit = { id: nextId++, title, createdAt: new Date().toISOString() }
   habits.push(habit)
   res.status(201).json(habit)
 })

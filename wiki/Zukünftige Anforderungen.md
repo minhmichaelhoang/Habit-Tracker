@@ -1,0 +1,1 @@
+- Farbauswahl per gegeben Farben auswählen, statt selber einen Hexcode anzugeben

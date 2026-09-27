@@ -1,4 +1,4 @@
-git # Use Cases
+# Use Cases
 Habit erstellen
 - Auf den Hinzufügeknopf drücken, um ein das Modul für die Habit-Erstellung zu öffnen
 	- Vorher: Startseite mit Hinzufügebutton

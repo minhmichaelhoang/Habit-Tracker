@@ -5,3 +5,5 @@ export interface Habit {
     color: string;
     id: string;
 }
+
+export type HabitDraft = Omit<Habit, "id">;
