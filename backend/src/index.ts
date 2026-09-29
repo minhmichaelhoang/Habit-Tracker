@@ -1,9 +1,11 @@
 import express from 'express'
 
 type Habit = {
-  id: number
-  title: string
-  createdAt: string
+  title: string;
+  description: string;
+  repeat: number;
+  color: string;
+  id: number;
 }
 
 const app = express()
@@ -24,13 +26,13 @@ app.get('/api/habits', (_req, res) => {
 })
 
 app.post('/api/habits', (req, res) => {
-  const title = typeof req.body?.name === 'string' ? req.body.title.trim() : ''
+  const title = typeof req.body?.title === 'string' ? req.body.title.trim() : ''
   if (!title) {
     res.status(400).json({ error: 'title is required' })
     return
   }
 
-  const habit: Habit = { id: nextId++, title, createdAt: new Date().toISOString() }
+  const habit: Habit = {color: "", description: "", repeat: 0, id:  nextId++, title}
   habits.push(habit)
   res.status(201).json(habit)
 })

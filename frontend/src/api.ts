@@ -1,8 +1,7 @@
 import type { Habit, HabitDraft } from "./domain/Habit"
-export const BASE_URL = import.meta.env.VITE_API_URL ?? "";
 
 export async function createHabit(data: HabitDraft): Promise<Habit> {
-    const response = await fetch(`${BASE_URL}api/habits`, {
+    const response = await fetch('api/habits', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
@@ -11,6 +10,14 @@ export async function createHabit(data: HabitDraft): Promise<Habit> {
 		throw new Error(await extractErrorMessage(response, "Error while creating a Habit"));
 	}
 	return await response.json();
+}
+
+export async function fetchHabits(): Promise<Habit[]> {
+	const response = await fetch('api/habits')
+	if (!response.ok) {
+		throw new Error(await extractErrorMessage(response, "Error while fetching Habit"));
+	}
+	return response.json();
 }
 
 async function extractErrorMessage(response: Response, fallback: string): Promise<string> {

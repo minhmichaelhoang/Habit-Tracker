@@ -1,37 +1,37 @@
 import { ArrowUp } from 'lucide-react'
-import { type ChangeEvent, type SubmitEvent, useState } from "react";
-import type { HabitDraft } from "../../domain/Habit.ts";
-import {createHabit} from "../../api.ts";
+import { type ChangeEvent, type SubmitEvent, useState } from 'react';
+import type { Habit, HabitDraft } from '../../domain/Habit.ts';
+import { createHabit } from '../../api.ts';
 
 // Extra Typen, da der Input von repeat ein string ist und erst später in number umgewandelt wird.
 type HabitFormValues = Omit<HabitDraft, "repeat"> & { repeat: string }
 
 interface HabitCreatorProps {
-    onSubmit: () => void
+    onCreated: (habit: Habit) => void
 }
 
-export function HabitCreator({onSubmit}: HabitCreatorProps) {
+export function HabitCreator({onCreated}: HabitCreatorProps) {
     const [habit, setHabit] = useState<HabitFormValues>({title: "", description: "", repeat: "", color: ""})
     const [errorMessage, setErrorMessage] = useState("");
 
-    function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
+    async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
         e.preventDefault()
 
         if (!checkTitle() || !checkDescription() || !checkRepeat() || !checkColor()) return;
         else setErrorMessage("");
 
-        const result = createHabit({
-            title: habit.title,
-            description: habit.description,
-            repeat: Number(habit.repeat),
-            color: habit.color,
-        }) // type HabitDraft
-        // TODO etwas mit dem Rückgabewert anstellen. Es beinhaltet Habit mit einer ID, die zum auflisten notwendig ist
-
-        if (result) setHabit({title: "", description: "", repeat: "", color: ""})
-        else setErrorMessage("Habit could not be created successfully")
-
-        onSubmit()
+        try {
+            const result = await createHabit({
+                title: habit.title,
+                description: habit.description,
+                repeat: Number(habit.repeat),
+                color: habit.color,
+            }) // type HabitDraft
+            setHabit({title: "", description: "", repeat: "", color: ""})
+            onCreated(result)
+        } catch (error) {
+            setErrorMessage("Habit could not be created successfully\n" + error)
+        }
     }
 
     function checkTitle(): boolean {
