@@ -2,15 +2,12 @@
   "name": "habit-tracker",
   "version": "1.0.0",
   "private": true,
-  "workspaces": [
-    "frontend",
-    "backend"
-  ],
+  "workspaces": ["frontend"],
   "scripts": {
     "dev": "concurrently -n backend,frontend -c magenta,cyan \"npm:dev:backend\" \"npm:dev:frontend\"",
-    "dev:backend": "npm run dev -w backend",
+    "dev:backend": "cd backend && uv run fastapi dev app/main.py --port 3000",
     "dev:frontend": "npm run dev -w frontend",
-    "build": "npm run build --workspaces",
+    "build": "npm run -w frontend",
     "lint": "npm run lint -w frontend"
   },
   "devDependencies": {
